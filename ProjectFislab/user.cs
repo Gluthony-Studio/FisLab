@@ -35,6 +35,7 @@ namespace ProjectFislab
             get { return _email; }
             set { _email = value; }
         }
+        public userAccount() { }
         public userAccount(string Username, string Password)
         {
             username = Username;
@@ -48,7 +49,7 @@ namespace ProjectFislab
         }
         public void login()
         {
-
+            connect data = new connect();
         }
         public void signup()
         {

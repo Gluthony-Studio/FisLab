@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Widget;
@@ -12,31 +13,47 @@ namespace ProjectFislab
     [Activity(Label = "Welcome to Fislab", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
-        IFirebaseConfig config = new FirebaseConfig
-        {
-            AuthSecret = "KTkJ63vqljTTmt53tb8a4A93lrgN3sAuFG7q5t72",
-            BasePath = "https://fislabproject-default-rtdb.firebaseio.com/"
-        };
-        IFirebaseClient client;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
-            client = new FireSharp.FirebaseClient(config);
-            if (client != null)
+            connect data = new connect();
+
+            var message = FindViewById<TextView>(Resource.Id.message);
+            var offline = FindViewById<TextView>(Resource.Id.btnOffline);
+            try
             {
-                var message = FindViewById<TextView>(Resource.Id.message);
-                message.Text = "You're Connected";
+                data.client = new FireSharp.FirebaseClient(data.config);
+                if (data.client != null)
+                {
+                    message.Text = "You're Connected";
+                    data.internet = true;
+                }
+                var signup = FindViewById<Button>(Resource.Id.btnToSignUp);
+                signup.Click += Signup_Click;
+
+                var login = FindViewById<Button>(Resource.Id.btnToLogin);
+                login.Click += Login_Click;
+
+                offline.Click += (s, e) =>
+                {
+                    Intent nextActivity = new Intent(this, typeof(Menu_Activity));
+                    StartActivity(nextActivity);
+                };
             }
-            var signup = FindViewById<Button>(Resource.Id.btnToSignUp);
-            signup.Click += Signup_Click;
-
-            var login = FindViewById<Button>(Resource.Id.btnToLogin);
-            login.Click += Login_Click;
+            catch
+            {
+                message.Text = "You're not connected to Internet";
+                data.internet = false;
+                offline.Click += (s, e) =>
+                {
+                    Intent nextActivity = new Intent(this, typeof(Menu_Activity));
+                    StartActivity(nextActivity);
+                };
+            }
         }
-
         private void Login_Click(object sender, System.EventArgs e)
         {
             SetContentView(Resource.Layout.Llogin);
