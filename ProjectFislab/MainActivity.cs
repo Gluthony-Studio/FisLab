@@ -10,7 +10,7 @@ using FireSharp.Response;
 
 namespace ProjectFislab
 {
-    [Activity(Label = "Welcome to Fislab", Theme = "@style/AppTheme", MainLauncher = true)]
+    [Activity(Label = "Welcome to Fislab", Theme = "@style/Design Light", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -65,8 +65,7 @@ namespace ProjectFislab
             {
                 if (user.Text != null && pass.Text != null)
                 {
-                    userAccount account = new userAccount(user.Text, pass.Text);
-                    account.login();
+                    
                 }
             };
         }
@@ -74,6 +73,7 @@ namespace ProjectFislab
         private void Signup_Click(object sender, System.EventArgs e)
         {
             SetContentView(Resource.Layout.Lsignup);
+            connect data = new connect();
             var inuser = FindViewById<EditText>(Resource.Id.inUsername);
             var inpass = FindViewById<EditText>(Resource.Id.inPass);
             var inemail = FindViewById<EditText>(Resource.Id.inEmail);
@@ -83,8 +83,23 @@ namespace ProjectFislab
             {
                 if (inuser.Text != null && inpass.Text != null && inemail.Text != null)
                 {
-                    userAccount account = new userAccount(inuser.Text, inpass.Text, inemail.Text);
-                    account.signup();
+                    var check = data.client.Get("Account/" + inuser.Text);
+                    userAccount Caccount = check.ResultAs<userAccount>();
+                    if(Caccount.username != inuser.Text && Caccount.email != inemail.Text)
+                    {
+                        userAccount account = new userAccount()
+                        {
+                            username = inuser.Text,
+                            email = inemail.Text,
+                            password = inpass.Text
+                        };
+                        var setter = data.client.Set("Account/" + inuser.Text, account);
+                        SetContentView(Resource.Layout.Llogin);
+                    }
+                }
+                else
+                {
+
                 }
             };
         }

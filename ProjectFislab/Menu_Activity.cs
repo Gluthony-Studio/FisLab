@@ -3,6 +3,7 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using AndroidX.AppCompat.App;
 using Android.Widget;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ namespace ProjectFislab
 
             var welcome = FindViewById<TextView>(Resource.Id.txtwelcome);
             var date = FindViewById<TextView>(Resource.Id.txtdate);
+
+            var glb = FindViewById<Button>(Resource.Id.btnglb);
 
             date.Text = Date.datetext;
 

@@ -21,9 +21,52 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20pt"
         android:text="Choose Simulation"
         android:textAlignment="center"
-        android:textSize="12pt"
+        android:textSize="10pt"
         /> 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GLB"
+        android:textSize="12pt"
+        android:id="@+id/btnglb"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GLBB"
+        android:textSize="12pt"
+        android:id="@+id/btnglbb"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GMB"
+        android:textSize="12pt"
+        android:id="@+id/btngmb"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Katrol"
+        android:textSize="12pt"
+        android:id="@+id/btnkatrol"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Parabola"
+        android:textSize="12pt"
+        android:id="@+id/btnparabola"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thermal"
+        android:textSize="12pt"
+        android:id="@+id/btnthermal"
+        />
 
 </LinearLayout>
